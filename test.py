@@ -146,5 +146,22 @@ class Test_TestIncrementDecrement(unittest.TestCase):
 
         self.assertEqual(outcome['result'], 'All good')
 
+    #This is a test to check how failures are handled.
+    def test_failure(self):
+        event = {
+            "queryStringParameters": {
+                "environment": 'test',
+                "integrationIDs": [
+                    ['689b4454a8ed5'],
+                    ['689b44de2a039'],
+                    ['689b4494d676a']
+                ]
+            }
+        }
+
+        outcome = lambda_handler(event, None)
+
+        self.assertEqual(outcome['result'], 'All good')
+
 if __name__ == '__main__':
     unittest.main()

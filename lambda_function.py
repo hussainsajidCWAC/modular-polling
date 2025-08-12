@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         return False
 
     #call the given integration and pass the given row as the payload
-    def callIntegration(integrationID, row):
+    def callIntegration(integrationID, row, wait_period = 0):
         payload = {
             'Section 1': {}
         }
@@ -27,8 +27,20 @@ def lambda_handler(event, context):
                     'name': token,
                     'value': row[token]
                 }
+        
+        response = integration.runLookup(integrationID, payload)['data']
 
-        return integration.runLookup(integrationID, payload)['data']
+        if 'error' in response and wait_period < 8:
+            if wait_period > 0:
+                new_wait_period = wait_period * 2
+            else:
+                new_wait_period = 1
+            
+            time.sleep(new_wait_period)
+
+            callIntegration(integrationID, row, new_wait_period)
+
+        return response
 
     #for each given row, call the given integration
     def recursiveSomething(index = 0, rows = {'0': None}):
@@ -51,6 +63,9 @@ def lambda_handler(event, context):
                     continue
 
                 newRows = callIntegration(integrationID, rows[i])
+
+                if 'error' in newRows:
+                    continue
 
                 if (len(integrationIDs) > index + 1):
                     newIndex = index + 1
