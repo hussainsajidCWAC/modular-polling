@@ -1,0 +1,155 @@
+{
+    "jobs": [
+        {
+            "time": "01:00",
+            "integrationIDs": [
+                ["66c6eb17b4d36"],
+                ["5dd2b6522be4c"],
+                ["66dacda5517ca"]
+            ],
+            "blackout_days": [6],
+            "environment": "live",
+            "label":"Confirm polling - live"
+        },
+        {
+            "time": "02:00",
+            "integrationIDs": [
+                ["679264029b5e9"],
+                ["5dd2b6522be4c"],
+                ["67935c3fda786"],
+                ["67a7d4a8594c5"]
+            ],
+            "blackout_days": [6],
+            "environment": "live",
+            "label":"Confirm polling - for councillors - live"
+        },
+        {
+            "time": "03:00",
+            "integrationIDs": [
+                ["62a205a6cda71"],
+                ["62a207895115d"]
+            ],
+            "environment": "live",
+            "label":"Street name and numbering - remind - live"
+        },
+        {
+            "time": "03:10",
+            "integrationIDs": [
+                ["62a204e7a31f5"],
+                ["62a20796ddc30"]
+            ],
+            "environment": "live",
+            "label":"Street name and numbering - cancel - live"
+        },
+        {
+            "time": "04:00",
+            "integrationIDs": [
+                ["61e53a54b91f5"],
+                ["61e5486c720d4"]
+            ],
+            "environment": "live",
+            "label":"Local Land Charge search - remind - live"
+        },
+        {
+            "time": "04:10",
+            "integrationIDs": [
+                ["61e53ae7e831c"],
+                ["61e548c665ef2","623d992169f1a"]
+            ],
+            "environment": "live",
+            "label":"Local Land Charge search - cancel - live"
+        },
+        {
+            "time": "05:00",
+            "integrationIDs": [
+                ["5d52d416b1d85"],
+                ["5d52ced72715b"]
+            ],
+            "environment": "live",
+            "label":"Sports and events - reminder emails - live"
+        },
+        {
+            "time": "05:10",
+            "integrationIDs": [
+                ["5d52d3e459313"],
+                ["5d52ce9c26d98"]
+            ],
+            "environment": "live",
+            "label":"Sports and events - cancellation email - live"
+        },
+        {
+            "time": "05:20",
+            "integrationIDs": [
+                ["5d52cd88aa5c2"]
+            ],
+            "environment": "live",
+            "label":"Sports and events - cancel expired payments - live"
+        },
+        {
+            "time": "06:00",
+            "integrationIDs": [
+                ["669ed69196a84"],
+                ["669ed1bdb4b43"]
+            ],
+            "environment": "live",
+            "label":"FPN - live"
+        },
+        {
+            "time": "07:00",
+            "integrationIDs": [
+                ["670fc899703f0"]
+            ],
+            "environment": "live",
+            "label":"Allotments - live"
+        }
+    ],
+    "jobs_suspended": [
+        {
+            "time": "09:00",
+            "integrationIDs": [
+                ["669f586074915"],
+                ["669f58853d1f4"],
+                ["669f58d9c5804"]
+            ],
+            "environment": "test",
+            "label":"Polling test - test"
+        },
+        {
+            "time": "00:00",
+            "integrationIDs": [
+                ["62a205a6cda71"],
+                ["62a207895115d"]
+            ],
+            "environment": "test",
+            "label":"Street name and numbering - remind - test"
+        },
+        {
+            "time": "01:00",
+            "integrationIDs": [
+                ["62a204e7a31f5"],
+                ["62a20796ddc30"]
+            ],
+            "environment": "test",
+            "label":"Street name and numbering - cancel - test"
+        },
+        {
+            "time": "14:16",
+            "integrationIDs": [
+                ["66bdf7349f2f5"],
+                ["66bdf7b7861a5"]
+            ],
+            "environment": "test",
+            "label":"Slow job [1] - test"
+        },
+        {
+            "time": "14:16",
+            "integrationIDs": [
+                ["66bdf7349f2f5"],
+                ["66bdf9fbf3d13"]
+            ],
+            "environment": "test",
+            "label":"Slow job [2] - test"
+        }
+    ],
+    "heartbeat_interval_minutes": 10
+}
