@@ -26,7 +26,7 @@ def job_wrapper(event, label):
         outcome = lambda_handler(event, None)
         logging.info(f"Job completed with label = {label}, outcome = {outcome}")
     except Exception as e:
-        logging.error(f"Error running job with label = {label} - {str(e)}")
+        logging.error(f"Error running job with label = {label} - {str(e)}", exc_info=True)
 
 def threaded_job(event, label):
     thread = threading.Thread(target=job_wrapper, args=(event, label))

@@ -131,21 +131,6 @@ class Test_TestIncrementDecrement(unittest.TestCase):
 
         self.assertEqual(outcome['result'], 'All good')
 
-    def test_specific(self):
-        event = {
-            "queryStringParameters": {
-                "environment": 'test',
-                "integrationIDs": [
-                    ['5d52d3e459313'],
-                    ['5d52ce9c26d98']
-                ]
-            }
-        }
-
-        outcome = lambda_handler(event, None)
-
-        self.assertEqual(outcome['result'], 'All good')
-
     #This is a test to check how failures are handled.
     def test_failure(self):
         event = {
@@ -155,6 +140,21 @@ class Test_TestIncrementDecrement(unittest.TestCase):
                     ['689b4454a8ed5'],
                     ['689b44de2a039'],
                     ['689b4494d676a']
+                ]
+            }
+        }
+
+        outcome = lambda_handler(event, None)
+
+        self.assertEqual(outcome['result'], 'All good')
+
+    def test_email(self):
+        event = {
+            "queryStringParameters": {
+                "environment": 'test',
+                "integrationIDs": [
+                    ["689c8fa1dff49"],
+                    ["689c8fc68757d"]
                 ]
             }
         }

@@ -57,23 +57,43 @@ class integrations:
         
         response = requests.post(url, json=payload, cookies=self.cookies)
 
-        jsonResponse = json.loads(response.text)['integration']['transformed']
-
         results = {
              'hasRan': True,
              'success': None,
-             'data': jsonResponse
+             'data': None
         }
 
-        if 'xml_data' not in jsonResponse:
-            #integration has failed
+        # check if the response is okay
+        if response.status_code != 200:
             results['success'] = False
-        elif jsonResponse['error']:
-            #integration hasn't returned any data. propbably because it's an email integration
-            results['success'] = True
-        else:
-            #all good
-            results['success'] = True
-            results['data'] = jsonResponse['rows_data']
+
+            return results
+
+        # sometimes the int runs okay but returns an empty response
+        if response.text == '':
+            results['success'] = False
+
+            return results
+
+        jsonResponse = json.loads(response.text)
+
+        # check if the response contains an error
+        if 'error' in jsonResponse:
+            results['success'] = False
+
+            return results
         
+        if jsonResponse['integration']['type'] == 'email':
+            # this is an email integration, so we don't have any data to return
+            results['success'] = True
+            results['data'] = None
+
+            return results
+
+        try:
+            results['data'] = jsonResponse['integration']['transformed']['rows_data']
+            results['success'] = True
+        except:
+            results['success'] = False
+
         return results

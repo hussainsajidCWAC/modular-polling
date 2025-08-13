@@ -15,7 +15,7 @@ def lambda_handler(event, context):
         return False
 
     #call the given integration and pass the given row as the payload
-    def callIntegration(integrationID, row, wait_period = 0):
+    def callIntegration(integrationID, row, retry_count = 0):
         payload = {
             'Section 1': {}
         }
@@ -28,22 +28,20 @@ def lambda_handler(event, context):
                     'value': row[token]
                 }
         
-        response = integration.runLookup(integrationID, payload)['data']
+        response = integration.runLookup(integrationID, payload)
 
-        if 'error' in response and wait_period < 8:
-            if wait_period > 0:
-                new_wait_period = wait_period * 2
-            else:
-                new_wait_period = 1
-            
-            time.sleep(new_wait_period)
+        if response['success'] == False and retry_count < 5:
+            retry_count += 1
 
-            callIntegration(integrationID, row, new_wait_period)
+            # exponential backoff
+            time.sleep(pow(2, retry_count))
 
-        return response
+            callIntegration(integrationID, row, retry_count)
+
+        return response['data']
 
     #for each given row, call the given integration
-    def recursiveSomething(index = 0, rows = {'0': None}):
+    def recursiveIntegrationCall(index = 0, rows = {'0': None}):
 
         def checkConditions(conditions, integrationID, row):
             if conditions is not None:
@@ -61,15 +59,20 @@ def lambda_handler(event, context):
 
                 if not valid:
                     continue
-
+                
                 newRows = callIntegration(integrationID, rows[i])
 
-                if 'error' in newRows:
+                if newRows is None:
                     continue
 
-                if (len(integrationIDs) > index + 1):
+                if (len(integrationIDs) > index + 1) and len(newRows) > 0:
                     newIndex = index + 1
-                    recursiveSomething(newIndex, newRows)
+
+                    recursiveIntegrationCall(newIndex, newRows)
+                    #try:
+                    #    recursiveIntegrationCall(newIndex, newRows)
+                    #except:
+                    #    continue
 
     environment = 'test'
     
@@ -98,7 +101,7 @@ def lambda_handler(event, context):
     integration.login()
 
     #start
-    recursiveSomething()
+    recursiveIntegrationCall()
 
     time_lapsed = time.time() - start
 
