@@ -1,6 +1,17 @@
 {
     "jobs": [
         {
+            "time": "00:00",
+            "integrationIDs": [
+                ["66c6eb17b4d36"],
+                ["5dd2b6522be4c"],
+                ["66dacda5517ca"]
+            ],
+            "blackout_days": [6],
+            "environment": "live",
+            "label":"Confirm polling - live - 1/3"
+        },
+        {
             "time": "01:00",
             "integrationIDs": [
                 ["66c6eb17b4d36"],
@@ -9,7 +20,18 @@
             ],
             "blackout_days": [6],
             "environment": "live",
-            "label":"Confirm polling - live"
+            "label":"Confirm polling - live - 2/3"
+        },
+        {
+            "time": "02:00",
+            "integrationIDs": [
+                ["66c6eb17b4d36"],
+                ["5dd2b6522be4c"],
+                ["66dacda5517ca"]
+            ],
+            "blackout_days": [6],
+            "environment": "live",
+            "label":"Confirm polling - live - 3/3"
         },
         {
             "time": "02:00",
