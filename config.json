@@ -111,7 +111,7 @@
             "time": "06:00",
             "integrationIDs": [
                 ["669ed69196a84"],
-                ["669ed1bdb4b43"]
+                ["669ed1bdb4b43", "692dc80b901b3"]
             ],
             "environment": "live",
             "label":"FPN - live"
